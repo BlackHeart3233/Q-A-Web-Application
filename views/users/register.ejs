@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Register</title>
+  <link rel="stylesheet" href="/css/users/register.css" />
+</head>
+<body>
+
+<div class="container">
+  <div class="card">
+    <h2>Create account</h2>
+    <p class="subtitle"></p>
+    <div class="tabs">
+      <button><a href="/users/login">Log In</a></button>
+      <button class="active">Sign Up</button>
+    </div>
+    <form action="/users/register" method="POST">
+      <label>Full Name</label>
+      <div class="input-group">
+        <input type="text" name="username" placeholder="Linus Torvalds" />
+      </div>
+      <label>Email</label>
+      <div class="input-group">
+        <input type="email" name="email" placeholder="test@example.com" />
+      </div>
+      <label>Password</label>
+      <div class="input-group">
+        <input type="password" name="password" placeholder="myPassword" />
+      </div>
+      <label>Confirm Password</label>
+      <div class="input-group">
+        <input type="password" name="confirm_password" placeholder="••••••••" />
+      </div>
+      <% if (error_message) { %>
+        <p style="color:red;"><%= error_message %></p>
+      <% } %>
+      <button type="submit" class="primary-btn">Create account</button>
+    </form>
+    <p class="signup">
+      Already have an account? <a href="/users/login">Log in</a>
+    </p>
+  </div>
+</div>
+</body>
+</html>

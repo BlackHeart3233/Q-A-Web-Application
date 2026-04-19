@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Profile</title>
+  <link rel="stylesheet" href="/css/users/profile.css">
+</head>
+
+<body>
+<%- include('../nav_bar') %>
+<div class="profile-card">
+  <div class="profile-header">
+    <div class="avatar">
+        <img src="/users/avatar/<%= user_profile._id %>" width="150" />
+    </div>
+    <div class="profile-info">
+      <h2><%= user_profile.username %></h2>
+      <p><%= user_profile.email %></p>
+    </div>
+  </div>
+  <div class="stats">
+    <div class="stat-box">
+      <h3><%= user_profile.articles || 0 %></h3>
+      <p>Articles</p>
+    </div>
+        <div class="stat-box">
+      <h3><%= user_profile.answers || 0 %></h3>
+      <p>Answers</p>
+    </div>
+    <div class="stat-box"> 
+      <h3><%= user_profile.avg_rating.toFixed(2) %></h3>
+      <p>Rating</p>
+    </div>
+  </div>
+  <% if (userId && userId.toString() === user_profile._id.toString()) { %>
+    <div class="section">
+      <h3>Profile Picture</h3>
+      <form id="uploadForm" method="POST" action="/users/avatarUpdate">
+        <div class="upload-box">
+          <input type="file" id="fileInput" accept="image/*" required />
+        </div>
+        <input type="hidden" name="imageBase64" id="imageBase64" />
+        <button class="edit-btn" type="submit">Upload</button>
+      </form>
+    </div>
+  <% } %>
+
+</body>
+<script>
+document.getElementById("uploadForm").addEventListener("submit", function (e) {
+  const file = document.getElementById("fileInput").files[0];
+
+  if (!file) {
+    return;
+  }
+  e.preventDefault();
+  const reader = new FileReader();
+  reader.onload = function () {
+    document.getElementById("imageBase64").value = reader.result;
+    e.target.submit();
+  };
+  reader.readAsDataURL(file);
+});
+</script>
+</html>

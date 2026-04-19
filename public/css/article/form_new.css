@@ -1,0 +1,108 @@
+body {
+  margin: 0;
+  font-family: "Segoe UI", sans-serif;
+  background: radial-gradient(circle at top left, #7a0000, #000);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  color: white;
+}
+
+.container {
+  width: 100%;
+  max-width: 420px;
+  padding: 20px;
+}
+
+.card {
+  background: #111;
+  padding: 30px;
+  border-radius: 16px;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.6);
+  text-align: center;
+}
+
+.logo {
+  width: 50px;
+  height: 50px;
+  margin: 0 auto 15px;
+  background: linear-gradient(135deg, #ff3b3b, #cc0000);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  font-size: 22px;
+}
+
+h2 {
+  margin-bottom: 5px;
+}
+
+.subtitle {
+  color: #aaa;
+  font-size: 14px;
+  margin-bottom: 20px;
+}
+
+label {
+  display: block;
+  text-align: left;
+  font-size: 12px;
+  margin-bottom: 5px;
+  color: #aaa;
+}
+
+.input-group {
+  display: flex;
+  align-items: center;
+  background: #1a1a1a;
+  border-radius: 10px;
+  padding: 10px;
+  margin-bottom: 15px;
+}
+
+.input-group span {
+  margin-right: 8px;
+}
+
+.input-group input,
+.input-group textarea {
+  border: none;
+  outline: none;
+  background: transparent;
+  color: white;
+  width: 100%;
+  font-size: 14px;
+}
+
+.textarea-group {
+  align-items: flex-start;
+}
+
+.textarea-group textarea {
+  resize: none;
+  height: 120px;
+  padding-top: 5px;
+}
+
+.primary-btn {
+  width: 100%;
+  padding: 12px;
+  background: linear-gradient(135deg, #ff2b2b, #cc0000);
+  border: none;
+  border-radius: 10px;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.primary-btn:hover {
+  opacity: 0.9;
+}
+
+a{
+  color: #ff4d4d;
+  text-decoration: none;
+}

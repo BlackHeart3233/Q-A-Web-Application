@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login UI</title>
+  <link rel="stylesheet" href="/css/users/login.css" />
+</head>
+<body>
+
+<div class="container">
+  <div class="card">
+  
+    <h2>Welcome back</h2>
+    <p class="subtitle"></p>
+
+    <div class="tabs">
+      <button class="active">Log In</button>
+      <button><a href="/users/register">Sign Up</a></button>
+    </div>
+
+    <form action="/users/login" method="POST">
+      <label>Email</label>
+      <div class="input-group">
+        <input type="text" name="username" placeholder="testuser323" />
+      </div>
+
+      <div class="password-row">
+        <label>Password</label>
+      </div>
+
+
+      <div class="input-group">
+        <input type="password" name="password" placeholder="••••••••" />
+      </div>
+      <% if (error_message) { %>
+        <p style="color:red;"><%= error_message %></p>
+      <% } %>
+
+      <button class="primary-btn">Log in</button>
+    </form>
+
+    <p class="signup">
+      New here? <a href="users/register">Create an account</a>
+    </p>
+
+  </div>
+</div>
+
+</body>
+</html>

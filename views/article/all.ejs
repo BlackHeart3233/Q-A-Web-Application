@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>All Questions</title>
+  <link rel="stylesheet" href="/css/article/all.css">
+</head>
+
+<body>
+<%- include('../nav_bar') %>
+<div class="container">
+  <div class="card">
+
+    <h2>All Questions</h2>
+    <% if (articles.length === 0) { %>
+      <p>No questions have been posted yet.</p>
+    <% } else { %>
+      <% articles.forEach(article => { %>
+        <div class="question-title">
+          <a href="/article/<%= article._id %>">
+            <%= article.title %>
+          </a>
+        </div>      
+      <% }); %>
+    <% } %>
+  </div>
+</div>
+
+</body>
+</html>

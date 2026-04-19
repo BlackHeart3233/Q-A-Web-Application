@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Q&A System</title>
+  <link rel="stylesheet" href="/css/article/article.css">
+</head>
+
+<body>
+<%- include('../nav_bar') %>
+<div class="container">
+  <div class="main">
+    <div class="user-info">
+      <img src="/users/avatar/<%= owner._id %>" width="30"/>
+      <div>
+        <a href="/users/user_profile/<%= owner._id %>" class="user-link">
+          <span class="username"><%= owner.username %></span>
+        </a>
+        <span class="time">
+          <%= article.date ? article.date.toLocaleDateString() : '' %>
+        </span>
+      </div>
+    </div>
+    <h2><%= article.title %></h2>
+    <p class="question-desc">
+      <%= article.content %>
+    </p>
+    <% if (article.owner && user && article.owner.toString() === user.toString()) { %>
+      <form action="/article/delete/<%= article._id %>" method="POST">
+        <button class="danger-btn">Delete Question</button>
+      </form>
+    <% } %>
+    <p class="views">Views: <%= article.views || 0 %></p>
+    <h3 class="section-title">Answers</h3>
+    <% if (!comments || comments.length === 0) { %>
+      <p>No answers yet. Be the first to answer!</p>
+    <% } else { %>
+      <% comments.forEach(comment => { %>
+        <div class="answer <%= comment.Accepted ? 'accepted' : '' %>">
+          <div class="vote">
+            <form action="/comment/upvote/<%= comment._id %>" method="post">
+              <button class="accept-btn">▲</button>
+            </form>
+
+            <span><%= comment.votes %></span>
+            <form action="/comment/downvote/<%= comment._id %>" method="post">
+              <button class="accept-btn">▼</button>
+            </form>
+          </div>
+          <div class="answer-content">
+            <a href="/users/user_profile/<%= comment.owner_user?._id %>" class="user-link">
+              <div class="user-info small">
+                <img src="/users/avatar/<%= comment.owner_user?._id %>" width="30">
+                <span class="username">
+                  <%= comment.owner_user?.username %>
+                </span>
+              </div>
+            </a>
+            <p><%= comment.content %></p>
+            <% if (article.owner && user && article.owner.toString() === user.toString()) { %>
+              <div class="actions">
+                <% if (!comment.Accepted) { %>
+                  <form action="/comment/accept/<%= comment._id %>" method="post" >
+                    <button class="accept-btn">Accept</button>
+                  </form>
+                <% } else { %>
+                  <form action="/comment/unaccept/<%= comment._id %>" method="post">
+                    <button class="accept-btn">Remove accepted</button>
+                  </form>
+                <% } %>
+              </div>
+            <% } %>
+            <% if (comment.owner_user && user && comment.owner_user._id.toString() === user.toString()) { %>
+              <form action="/comment/delete/<%= comment._id %>" method="post" style="display:inline;">
+                <button class="delete-small">Delete</button>
+              </form>
+            <% } %>
+            <div class="sub-comments">
+              <% if (comment.subComments && comment.subComments.length > 0) { %>
+                <% comment.subComments.forEach(sub => { %>
+                  <div class="sub-comment">
+
+                    <div class="user-info small">
+                      <img src="/users/avatar/<%= sub.owner_user?._id %>" width="20">
+                      <span class="username">
+                        <%= sub.owner_user?.username %>
+                      </span>
+                    </div>
+
+                    <p><%= sub.content %></p>
+
+                    <% if (sub.owner_user && user && sub.owner_user._id.toString() === user.toString()) { %>
+                      <form action="/sub_comment/delete/<%= sub._id %>" method="post" style="display:inline;">
+                        <button class="delete-small">Delete</button>
+                      </form>
+                    <% } %>
+
+                  </div>
+                <% }) %>
+              <% } %>
+            </div>
+            <form action="/sub_comment/new" method="POST" class="comment-form">
+              <input type="text" name="content" placeholder="Add a comment...">
+              <input type="hidden" name="articleId" value="<%= article._id %>">
+              <input type="hidden" name="commentId" value="<%= comment._id %>">
+              <button type="submit">Post</button>
+            </form>
+          </div>
+        </div>
+      <% }) %>
+    <% } %>
+    <div class="comments">
+      <form action="/comment/new" method="POST" class="comment-form">
+        <input type="text" name="content" placeholder="Add a comment...">
+        <input type="hidden" name="articleId" value="<%= article._id %>">
+        <button type="submit">Post</button>
+      </form>
+    </div>
+
+  </div>
+</div>
+</body>
+</html>
